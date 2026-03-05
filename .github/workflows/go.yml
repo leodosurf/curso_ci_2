@@ -28,8 +28,12 @@ jobs:
     - name: Create-DB
       run: docker compose up -d
 
-    - name: Wait for DB UP
-      run: sleep 30 # Pauses for 30 seconds
+    - name: Wait for DB
+        run: |
+          while ! curl -s telnet://localhost:5432 > /dev/null; do
+            echo "Waiting for service..."
+            sleep 5
+          done
 
     - name: Test
       run: go test -v main_test.go 
