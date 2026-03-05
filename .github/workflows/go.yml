@@ -28,6 +28,9 @@ jobs:
     - name: Create-DB
       run: docker compose up -d
 
+    - name: Wait for DB UP
+      run: sleep 30 # Pauses for 30 seconds
+
     - name: Test
       run: go test -v main_test.go 
       
